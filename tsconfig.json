@@ -23,7 +23,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/custom.d.ts"
-  ],
+, "src/utils/dbConnect.ts"  ],
   "exclude": [
     "node_modules"
   ]
