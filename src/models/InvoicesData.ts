@@ -2,9 +2,8 @@ import mongoose from 'mongoose';
 
 
 const InvoiceDataSchema = new mongoose.Schema({
-    email: { type: String, required: true },
     invoiceId: { type: String, required: true },
-    createdAt: { type: String, required: true },
+    createdAt: { type: Date, required: true },
     paymentDue: { type: String },
     description: { type: String },
     paymentTerms: { type: Number },
