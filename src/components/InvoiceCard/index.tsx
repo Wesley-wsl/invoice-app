@@ -1,20 +1,22 @@
 import React from "react";
 import { Container } from "./styles";
 import IconArrowRight from "../../assets/icon-arrow-right.svg";
+import {InvoiceCardProps} from '../../@types/InvoiceTypes';
 
-const InvoiceCard: React.FC = () => {
+
+const InvoiceCard: React.FC<InvoiceCardProps> = ({ data }) => {
     return (
         <Container>
             <ul>
                 <li className="id">
-                    <span>#</span>XM9141
+                    <span>#</span>{data.invoiceId}
                 </li>
-                <li className="date">Due 19 sep 2021</li>
-                <li className="name">Josen Huang</li>
-                <li className="invoice">R$1,800.90</li>
+                <li className="date">{data.paymentDue}</li>
+                <li className="name">{data.email}</li>
+                <li className="invoice">${data.total}</li>
                 <li className="state">
                     {" "}
-                    <div /> <p>Pending</p>
+                    <div /> <p>{data.status}</p>
                 </li>
                 <li className="icon">
                     <IconArrowRight />
