@@ -4,12 +4,13 @@ export const Container = styled.section`
     display: ${(props: {newInvoice: Boolean}) => props.newInvoice === true ? 'flex' : 'none'};
     position: fixed;
     background-color: #141625;
-    height: 640px;
+    height: 100vh;
     overflow-y: scroll;
     overflow-x: auto;
     width: 580px;
     top: 0;
     left: 0;
+    animation: appear 0.3s linear;
 
     h2 {
         padding: 10px;
@@ -22,6 +23,18 @@ export const Container = styled.section`
         margin: 20px;
     }
     padding-left: 20px;
+
+    @keyframes appear {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0.8;
+        }
+
+        100% {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+    }
 `;
 
 export const Button = styled.button`
