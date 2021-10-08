@@ -52,3 +52,13 @@ export const InvoicesBar = styled.section`
         }
     }
 `;
+
+
+export const BackgroundForModal = styled.div`
+
+background-color: #00000060;
+position: fixed;
+width: 100vw;
+height: 100vh;
+top: 0;
+`
