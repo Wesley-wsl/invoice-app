@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import InvoiceCard from "../components/InvoiceCard";
 import IconArrowDown from "../assets/icon-arrow-down.svg";
-import { Container, InvoicesBar } from "../styles/Home";
+import { BackgroundForModal, Container, InvoicesBar } from "../styles/Home";
 import NewInvoice from "../components/NewInvoice";
 import api from "../services/api";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Key } from "hoist-non-react-statics/node_modules/@types/react";
 
 export default function Home({ invoices }) {
@@ -47,17 +47,25 @@ export default function Home({ invoices }) {
                     </div>
                 </InvoicesBar>
 
-                {newInvoice && <NewInvoice newInvoice={newInvoice} />}
+                {newInvoice && (
+                    <>
+                        <BackgroundForModal onClick={() => setNewInvoice(false)}/>
+                        <NewInvoice newInvoice={newInvoice} />
+                    </>
+                )}
 
                 {invoices &&
                     invoices.data.map(
-                        (data: {
-                            email: string;
-                            total: Number;
-                            invoiceId: string;
-                            status: string;
-                            paymentDue: string;
-                        }, index: Key) => <InvoiceCard data={data} key={index} />
+                        (
+                            data: {
+                                clientEmail: string;
+                                total: Number;
+                                invoiceId: string;
+                                status: string;
+                                paymentDue: string;
+                            },
+                            index: Key
+                        ) => <InvoiceCard data={data} key={index} />
                     )}
             </Container>
         </>
@@ -65,7 +73,6 @@ export default function Home({ invoices }) {
 }
 
 export async function getServerSideProps() {
-
     const invoices = await api.get("http://localhost:3000/api/invoices");
 
     return {
