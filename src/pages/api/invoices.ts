@@ -17,13 +17,34 @@ export default async function handler(req, res) {
             break;
         case "POST":
             try {
-                const { email, invoiceId, createdAt, status } = req.body;
+                const {
+                    invoiceId,
+                    invoiceDate,
+                    status,
+                    paymentDue,
+                    description,
+                    paymentTerms,
+                    clientName,
+                    clientEmail,
+                    senderAddress,
+                    clientAddress,
+                    items,
+                    total
+                } = req.body;
 
                 const createInvoices = await InvoicesData.create({
-                    email,
                     invoiceId,
-                    createdAt,
+                    invoiceDate,
                     status,
+                    paymentDue,
+                    description,
+                    paymentTerms,
+                    clientName,
+                    clientEmail,
+                    senderAddress,
+                    clientAddress,
+                    items,
+                    total
                 });
 
                 res.status(200).json({ success: true, data: createInvoices });
