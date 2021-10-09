@@ -21,8 +21,8 @@ const InvoiceDataSchema = new mongoose.Schema({
       postCode: {type: String, required: true},
       country: {type: String, required: true},
     },
-    items: [{ name: String, quantity: Number, price: Number, total: Number }],
-    total: Number,
+    items: { name: String, quantity: String, price: String },
+    total: Number
 })
 
 
