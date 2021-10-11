@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 
-import {
-    Button,
-    Container,
-    Group,
-    InputLarger,
-    ItemList,
-    Select,
-} from "./styles";
+import { Button, Container, Group, InputLarger, ItemList } from "./styles";
 import { NewInvoiceProps } from "../../@types/InvoiceTypes";
-import IconDelete from "../../assets/icon-delete.svg";
 import api from "../../services/api";
 import { FormEvent } from "hoist-non-react-statics/node_modules/@types/react";
 
-const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
+const NewInvoice: React.FC<NewInvoiceProps> = ({
+    newInvoice,
+    setNewInvoice,
+    getAllInvoices,
+}) => {
     const [streetAdressFrom, setStreetAdressFrom] = useState("");
     const [cityFrom, setCityFrom] = useState("");
     const [postCodeFrom, setPostCodeFrom] = useState("");
@@ -25,43 +21,47 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
     const [postCodeTo, setPostCodeTo] = useState("");
     const [countryTo, setCountryTo] = useState("");
     const [invoiceDate, setInvoiceDate] = useState("");
-    const [paymentTerms, setPaymentTerms] = useState("Net-1-Day");
     const [projectDescription, setProjectDescription] = useState("");
-    // const [itemName] = useState("");
-    // const [Qty] = useState("");
-    // const [price] = useState("");
-    // const [total] = useState("");
-
+    const [paymentDue, setPaymentDue] = useState("");
+    const [itemName,setItemName] = useState("");
+    const [Qty, setQty] = useState("");
+    const [price, setPrice] = useState("");
 
     async function handleSubmit(e: FormEvent) {
-        e.preventDefault()
+        e.preventDefault();
 
-        await api.post('/invoices', {
-            invoiceId: 'M019SK',
-            createdAt: Date.now(),
-            paymentDue: '???',
+        await api.post("/invoices", {
+            invoiceId: "M019SK",
+            invoiceDate,
+            paymentDue,
             description: projectDescription,
             clientName,
             clientEmail,
-            status: 'Pending',
-            senderAdress: {
+            status: "Pending",
+            senderAddress: {
                 street: streetAdressFrom,
                 city: cityFrom,
                 postCode: postCodeFrom,
-                country: countryFrom
+                country: countryFrom,
             },
-            clientAdress: {
+            clientAddress: {
                 street: streetAdressTo,
                 city: cityTo,
                 postCode: postCodeTo,
-                country: countryTo
-            }
-        })
+                country: countryTo,
+            },
+            items: {
+                name: itemName, quantity: Qty, price, total: Number(Qty)*Number(price) 
+            },
+            total: Number(Qty)*Number(price) 
+        });
+
+        getAllInvoices();
+        setNewInvoice(false);
     }
 
     return (
         <Container newInvoice={newInvoice}>
-            <div id="back" />
             <div>
                 <h2>New Invoice</h2>
                 <p>Bill From</p>
@@ -78,7 +78,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 onChange={(e) =>
                                     setStreetAdressFrom(e.target.value)
                                 }
-                                onClick={() => console.log(streetAdressFrom)}
+                                required
                             />
                         </div>
                         <Group>
@@ -91,7 +91,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                     onChange={(e) =>
                                         setCityFrom(e.target.value)
                                     }
-                                    onClick={() => console.log(cityFrom)}
+                                    required
                                 />
                             </div>
                             <div>
@@ -103,7 +103,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                     onChange={(e) =>
                                         setPostCodeFrom(e.target.value)
                                     }
-                                    onClick={() => console.log(postCodeFrom)}
+                                    required
                                 />
                             </div>
                             <div>
@@ -115,7 +115,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                     onChange={(e) =>
                                         setCountryFrom(e.target.value)
                                     }
-                                    onClick={() => console.log(countryFrom)}
+                                    required
                                 />
                             </div>
                         </Group>
@@ -130,7 +130,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 name="clientName"
                                 id="clientName"
                                 onChange={(e) => setClientName(e.target.value)}
-                                onClick={() => console.log(clientName)}
+                                required
                             />
                         </div>
                         <div>
@@ -140,7 +140,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 name="clientEmail"
                                 id="clientEmail"
                                 onChange={(e) => setClientEmail(e.target.value)}
-                                onClick={() => console.log(clientEmail)}
+                                required
                             />
                         </div>
                         <div>
@@ -154,7 +154,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 onChange={(e) =>
                                     setStreetAdressTo(e.target.value)
                                 }
-                                onClick={() => console.log(streetAdressTo)}
+                                required
                             />
                         </div>
                         <Group>
@@ -165,19 +165,19 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                     name="cityTo"
                                     id="cityTo"
                                     onChange={(e) => setCityTo(e.target.value)}
-                                    onClick={() => console.log(cityTo)}
+                                    required
                                 />
                             </div>
                             <div>
                                 <label htmlFor="postCodeTo">Post Code</label>
                                 <input
-                                    type="number"
+                                    type="string"
                                     name="postCodeTo"
                                     id="postCodeTo"
                                     onChange={(e) =>
                                         setPostCodeTo(e.target.value)
                                     }
-                                    onClick={() => console.log(postCodeTo)}
+                                    required
                                 />
                             </div>
                             <div>
@@ -189,7 +189,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                     onChange={(e) =>
                                         setCountryTo(e.target.value)
                                     }
-                                    onClick={() => console.log(countryTo)}
+                                    required
                                 />
                             </div>
                         </Group>
@@ -201,24 +201,18 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 name="invoiceDate"
                                 id="invoiceDate"
                                 onChange={(e) => setInvoiceDate(e.target.value)}
-                                onClick={() => console.log(invoiceDate)}
+                                required
                             />
                         </div>
                         <div>
-                            <label htmlFor="paymentTerms">Payment Terms</label>
-                            <Select
-                                name="paymentTerms"
-                                id="paymentTerms"
-                                onChange={(e) =>
-                                    setPaymentTerms(e.target.value)
-                                }
-                                onClick={() => console.log(paymentTerms)}
-                            >
-                                <option value="Net-1-Day">Net 1 Day</option>
-                                <option value="Net-7-Days">Net 7 Days</option>
-                                <option value="Net-14-Days">Net 14 Days</option>
-                                <option value="Net-30-Days">Net 30 Days</option>
-                            </Select>
+                            <label htmlFor="paymentDue">Payment Due</label>
+                            <InputLarger
+                                type="date"
+                                name="paymentDue"
+                                id="paymentDue"
+                                onChange={(e) => setPaymentDue(e.target.value)}
+                                required
+                            />
                         </div>
 
                         <div>
@@ -232,64 +226,54 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({ newInvoice }) => {
                                 onChange={(e) =>
                                     setProjectDescription(e.target.value)
                                 }
-                                onClick={() => console.log(projectDescription)}
+                                required
                             />
                         </div>
                     </div>
 
                     <ItemList>
-                        <p>Item List</p>
-
-                        <div className="container-item">
-                            <div>
-                                <label htmlFor="itemName">Item Name</label>
-                                <input
-                                    type="text"
-                                    name="itemName"
-                                    id="itemName"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="Qty">Qty.</label>
-                                <input
-                                    type="number"
-                                    name="Qty"
-                                    id="Qty"
-                                    className="input-small"
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="price">Price</label>
-                                <input
-                                    type="number"
-                                    name="price"
-                                    id="price"
-                                    className="input-small"
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="total">Total</label>
-                                <input
-                                    type="number"
-                                    name="total"
-                                    readOnly
-                                    id="total"
-                                    className="input-small"
-                                />
-                            </div>
-
-                            <IconDelete />
+                        <div>
+                            <label htmlFor="itemName">Item Name</label>
+                            <input
+                                type="text"
+                                name="itemName"
+                                id="itemName"
+                                required
+                                onChange={(e) =>
+                                    setItemName(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="Qty">Qty.</label>
+                            <input
+                                type="number"
+                                name="Qty"
+                                id="Qty"
+                                className="input-small"
+                                required
+                                onChange={(e) =>
+                                    setQty(e.target.value)
+                                }
+                            />
                         </div>
 
                         <div>
-                            <button>Add New Item</button>
+                            <label htmlFor="price">Price</label>
+                            <input
+                                type="number"
+                                name="price"
+                                id="price"
+                                className="input-small"
+                                required
+                                onChange={(e) =>
+                                    setPrice(e.target.value)
+                                }
+                            />
                         </div>
                     </ItemList>
 
                     <div className="Send">
-                        <Button>Save as Draft</Button>
                         <Button>Save and Send</Button>
                     </div>
                 </form>

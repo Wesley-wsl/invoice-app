@@ -35,6 +35,12 @@ export const Container = styled.section`
             opacity: 1;
         }
     }
+
+    .Send {
+        display:flex;
+        justify-content: flex-end;
+        margin-right: 45px;
+    }
 `;
 
 export const Button = styled.button`
@@ -61,6 +67,7 @@ export const Group = styled.div`
     div {
         display: flex;
         flex-direction: column;
+        margin-right: 10px;
 
         input {
             width: 150px;
@@ -90,31 +97,18 @@ export const Select = styled.select`
 `;
 
 export const ItemList = styled.section`
-
-.container-item {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
-    margin-right: 30px;
+    margin-right: 55px;
     align-items: center;
-}
+
+    div {
+        display: flex;
+        flex-direction: column;
+    }
 
 .input-small {
     width: 80px;
 }
-
-div > button {
-    padding: 15px;
-    border: none;
-    background-color: #1e2139;
-    border-radius: 20px;
-    width: 90%;
-    color: #fff;
-    margin: 30px 0;
-    cursor: pointer;
-}
-
-#total {
-    background-color: #141625;
-}
-
 `;
