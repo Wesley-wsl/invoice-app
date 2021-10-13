@@ -54,6 +54,10 @@ const invoice: React.FC<InvoiceData> = ({
         history.back();
     }
 
+    useEffect(() => {
+        setStatusState(data.status)
+    },[data.status])
+
     async function handlePaid() {
         await api.patch(`/invoices/${id}`);
         setStatusState("Paid");
