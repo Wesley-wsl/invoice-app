@@ -8,7 +8,7 @@ export const Container = styled.div`
         display: flex;
         justify-content: space-between;
         list-style: none;
-        background-color: #1e2139;
+        background-color: ${(props) => props.theme.secondary};
         padding: 25px;
         border-radius: 10px;
         align-items: center;

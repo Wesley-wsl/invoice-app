@@ -18,12 +18,13 @@ export const Back = styled.div`
 `;
 
 export const InvoiceController = styled.section`
-    background-color: #1e2139;
+    background-color: ${props => props.theme.secondary};
     padding: 25px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 60px;
+    font-weight:600;
 
     div {
         display: flex;
@@ -31,7 +32,6 @@ export const InvoiceController = styled.section`
 
         p {
             font-size: 14px;
-            color: #e8ebfd;
         }
 
 
@@ -105,10 +105,20 @@ export const InvoiceController = styled.section`
         }
     }
 
+    #paid {
+        width: 120px;
+        background-color: #00ff3799;
+        color: #fff;
+
+        &:hover {
+            background-color: #00ff37bf;
+        }
+    }
+
 `;
 
 export const InvoiceInformatios = styled.section`
-background-color: #1e2139;
+background-color: ${props => props.theme.secondary};
 border-radius: 10px;
 padding: 20px;
 
@@ -154,7 +164,7 @@ h3 {
 
 
 export const InvoiceItem = styled.div`
-background-color: #252945;
+background-color: ${props => props.theme.primary};
 border-radius: 10px;
 
 

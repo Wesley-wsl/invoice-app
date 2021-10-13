@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.section`
     display: ${(props: {newInvoice: Boolean}) => props.newInvoice === true ? 'flex' : 'none'};
     position: fixed;
-    background-color: #141625;
+    background-color: ${props => props.theme.primary};
     height: 100vh;
     overflow-y: scroll;
     overflow-x: auto;
@@ -82,7 +82,7 @@ export const InputLarger = styled.input`
     border: none;
     margin: 20px auto;
     width: 90%;
-    background-color: #1e2139;
+    background-color: ${props => props.theme.secondary};
     border: 1px solid #8060ff6a;
 `;
 export const Select = styled.select`
