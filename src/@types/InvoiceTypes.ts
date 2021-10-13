@@ -10,8 +10,9 @@ export interface InvoiceCardProps {
 
 export interface NewInvoiceProps {
     newInvoice: Boolean;
-    setNewInvoice: Function;
-    getInvoices: Function;
+    setNewInvoice?: Function;
+    getInvoices?: Function;
+    dataInvoice?: InvoiceData;
 }
 
 export interface InvoiceData {
@@ -42,4 +43,15 @@ export interface InvoiceData {
         clientEmail: string;
         total: Number;
     };
+}
+
+export interface HeaderProps {
+    setLightMode: Function,
+    lightMode: Boolean
+}
+
+export interface ThemeProps {
+    primary: string,
+    secondary: string,
+    color: string,
 }
