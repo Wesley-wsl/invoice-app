@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import InvoiceCard from "../components/InvoiceCard";
 import IconArrowDown from "../assets/icon-arrow-down.svg";
 import { BackgroundForModal, Container, InvoicesBar } from "../styles/Home";
@@ -71,7 +70,7 @@ export default function Home({ invoices }) {
                                         checked={paid}
                                         onChange={() => setPaid(!paid)}
                                     />
-                                    <label>Paid</label>
+                                    <label htmlFor="Paid">Paid</label>
                                 </div>
                                 <div>
                                     <input
@@ -80,7 +79,7 @@ export default function Home({ invoices }) {
                                         checked={pending}
                                         onChange={() => setPending(!pending)}
                                     />
-                                    <label>Pending</label>
+                                    <label htmlFor="Pending">Pending</label>
                                 </div>
                             </div>
                         </>
