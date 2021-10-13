@@ -67,8 +67,8 @@ export const InvoicesBar = styled.section`
                 position: absolute;
                 left: 7px;
                 top: 8px;
-                padding-left: 10px;
-                padding-top: 10px;
+                padding-left: 11px;
+                padding-top: 11px;
                 width: 2rem;
                 height: 2rem;
                 border-radius: 50%;
