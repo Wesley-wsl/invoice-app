@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-    display: ${(props: {newInvoice: Boolean}) => props.newInvoice === true ? 'flex' : 'none'};
+    display: ${(props: { newInvoice: Boolean }) =>
+        props.newInvoice === true ? "flex" : "none"};
     position: fixed;
-    background-color: ${props => props.theme.primary};
+    background-color: ${(props) => props.theme.primary};
     height: 100vh;
     overflow-y: scroll;
     overflow-x: auto;
@@ -37,7 +38,7 @@ export const Container = styled.section`
     }
 
     .Send {
-        display:flex;
+        display: flex;
         justify-content: flex-end;
         margin-right: 45px;
     }
@@ -82,18 +83,8 @@ export const InputLarger = styled.input`
     border: none;
     margin: 20px auto;
     width: 90%;
-    background-color: ${props => props.theme.secondary};
+    background-color: ${(props) => props.theme.secondary};
     border: 1px solid #8060ff6a;
-`;
-export const Select = styled.select`
-    padding: 15px;
-    border-radius: 7px;
-    border: none;
-    margin: 20px auto;
-    width: 90%;
-    background-color: #1e2139;
-    border: 1px solid #8060ff6a;
-    color: #fff;
 `;
 
 export const ItemList = styled.section`
@@ -108,7 +99,7 @@ export const ItemList = styled.section`
         flex-direction: column;
     }
 
-.input-small {
-    width: 80px;
-}
+    .input-small {
+        width: 80px;
+    }
 `;
