@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconArrowLeft from "../../assets/icon-arrow-left.svg";
 import {
     Back,
@@ -12,6 +12,9 @@ import {
 import api from "../../services/api";
 import { InvoiceData } from "../../@types/InvoiceTypes";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useRouter } from "next/dist/client/router";
+import NewInvoice from "../../components/NewInvoice";
+import { BackgroundForModal } from "../../styles/Home";
 
 const invoice: React.FC<InvoiceData> = ({
     data: {
@@ -28,6 +31,36 @@ const invoice: React.FC<InvoiceData> = ({
         total,
     },
 }) => {
+    const router = useRouter();
+    const { id } = router.query;
+    const [statusState, setStatusState] = useState(status);
+    const [editInvoice, setEditInvoice] = useState(false);
+    const data = {
+        data: {
+            senderAddress,
+            clientAddress,
+            items,
+            invoiceId,
+            invoiceDate,
+            status,
+            paymentDue,
+            description,
+            clientName,
+            clientEmail,
+            total,
+        },
+    }
+
+    async function handleDeleteInvoice() {
+        await api.delete(`/invoices/${id}`);
+        history.back();
+    }
+
+    async function handlePaid() {
+        await api.patch(`/invoices/${id}`);
+        setStatusState("Paid");
+    }
+
     return (
         <Container>
             <Back onClick={() => history.back()}>
@@ -37,25 +70,38 @@ const invoice: React.FC<InvoiceData> = ({
                 </p>
             </Back>
 
+            {editInvoice && (
+                <>
+                    <BackgroundForModal onClick={() => setEditInvoice(false)} />
+                    <NewInvoice newInvoice={editInvoice} dataInvoice={data} setNewInvoice={setEditInvoice} />
+                </>
+            )}
+
             <InvoiceController>
                 <div>
                     <p>status</p>
-                    <div className={`status ${status}`}>
+                    <div className={`status ${statusState}`}>
                         <div className="dot" />
-                        <p>Pending</p>
+                        <p>{statusState}</p>
                     </div>
                 </div>
 
                 <div>
-                    <button id="edit">Edit</button>
-                    <button id="delete">Delete</button>
-                    {/*Caso esteja em pending: Adicionar um botão para transforma-lo em Paid */}
+                    {statusState === "Pending" && (
+                        <button id="paid" onClick={handlePaid}>
+                            Mark as Paid
+                        </button>
+                    )}
+                    <button id="edit" onClick={() => setEditInvoice(true)}>
+                        Edit
+                    </button>
+                    <button id="delete" onClick={handleDeleteInvoice}>
+                        Delete
+                    </button>
                 </div>
             </InvoiceController>
 
             <InvoiceInformatios>
-                {" "}
-                {/*Informations */}
                 <InformationsBillFrom>
                     <div>
                         <p>
@@ -120,7 +166,11 @@ const invoice: React.FC<InvoiceData> = ({
                         <div>
                             <p>Total</p>
                             <p>
-                                <b>${Number(items.price) * Number(items.quantity)}</b>
+                                <b>
+                                    $
+                                    {Number(items.price) *
+                                        Number(items.quantity)}
+                                </b>
                             </p>
                         </div>
                     </div>
