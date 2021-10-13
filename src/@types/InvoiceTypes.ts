@@ -11,8 +11,35 @@ export interface InvoiceCardProps {
 export interface NewInvoiceProps {
     newInvoice: Boolean;
     setNewInvoice?: Function;
+    setData?: Function;
     getInvoices?: Function;
-    dataInvoice?: InvoiceData;
+    dataInvoice?: {
+        senderAddress: {
+            street: string;
+            city: string;
+            postCode: string;
+            country: string;
+        };
+        clientAddress: {
+            street: string;
+            city: string;
+            postCode: string;
+            country: string;
+        };
+        items: {
+            name: string;
+            quantity: string;
+            price: string;
+        };
+        invoiceId: string;
+        invoiceDate: string;
+        status: string;
+        paymentDue: string;
+        description: string;
+        clientName: string;
+        clientEmail: string;
+        total: Number;
+    };
 }
 
 export interface InvoiceData {
