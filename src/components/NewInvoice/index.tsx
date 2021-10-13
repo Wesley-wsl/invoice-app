@@ -10,6 +10,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
     newInvoice,
     setNewInvoice,
     getInvoices,
+    setData,
     dataInvoice
 }) => {
     const [streetAdressFrom, setStreetAdressFrom] = useState("");
@@ -67,7 +68,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
             getInvoices();
         } else {
             await api.put(`/invoices/${id}`, {
-                invoiceId: dataInvoice.data.invoiceId,
+                invoiceId: dataInvoice.invoiceId,
                 invoiceDate,
                 paymentDue,
                 description: projectDescription,
@@ -95,7 +96,34 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                 total: Number(Qty) * Number(price),
             });
 
-            history.back()
+            setData({
+                invoiceId: dataInvoice.invoiceId,
+                invoiceDate,
+                paymentDue,
+                description: projectDescription,
+                clientName,
+                clientEmail,
+                status: "Pending",
+                senderAddress: {
+                    street: streetAdressFrom,
+                    city: cityFrom,
+                    postCode: postCodeFrom,
+                    country: countryFrom,
+                },
+                clientAddress: {
+                    street: streetAdressTo,
+                    city: cityTo,
+                    postCode: postCodeTo,
+                    country: countryTo,
+                },
+                items: {
+                    name: itemName,
+                    quantity: Qty,
+                    price,
+                    total: Number(Qty) * Number(price),
+                },
+                total: Number(Qty) * Number(price),
+            })
         }
 
         setNewInvoice(false);
@@ -103,22 +131,22 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
 
     useEffect(() => {
         if (dataInvoice !== undefined) {
-            setStreetAdressFrom(dataInvoice.data.senderAddress.street);
-            setCityFrom(dataInvoice.data.senderAddress.city);
-            setPostCodeFrom(dataInvoice.data.senderAddress.postCode);
-            setCountryFrom(dataInvoice.data.senderAddress.country);
-            setClientName(dataInvoice.data.clientName);
-            setClientEmail(dataInvoice.data.clientEmail);
-            setStreetAdressTo(dataInvoice.data.clientAddress.street);
-            setCityTo(dataInvoice.data.clientAddress.city);
-            setPostCodeTo(dataInvoice.data.clientAddress.postCode);
-            setCountryTo(dataInvoice.data.clientAddress.country);
-            setInvoiceDate(dataInvoice.data.invoiceDate);
-            setProjectDescription(dataInvoice.data.description);
-            setPaymentDue(dataInvoice.data.paymentDue);
-            setItemName(dataInvoice.data.items.name);
-            setQty(dataInvoice.data.items.quantity);
-            setPrice(dataInvoice.data.items.price);
+            setStreetAdressFrom(dataInvoice.senderAddress.street);
+            setCityFrom(dataInvoice.senderAddress.city);
+            setPostCodeFrom(dataInvoice.senderAddress.postCode);
+            setCountryFrom(dataInvoice.senderAddress.country);
+            setClientName(dataInvoice.clientName);
+            setClientEmail(dataInvoice.clientEmail);
+            setStreetAdressTo(dataInvoice.clientAddress.street);
+            setCityTo(dataInvoice.clientAddress.city);
+            setPostCodeTo(dataInvoice.clientAddress.postCode);
+            setCountryTo(dataInvoice.clientAddress.country);
+            setInvoiceDate(dataInvoice.invoiceDate);
+            setProjectDescription(dataInvoice.description);
+            setPaymentDue(dataInvoice.paymentDue);
+            setItemName(dataInvoice.items.name);
+            setQty(dataInvoice.items.quantity);
+            setPrice(dataInvoice.items.price);
         }
     }, [dataInvoice]);
 

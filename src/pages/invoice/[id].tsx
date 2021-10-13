@@ -35,8 +35,7 @@ const invoice: React.FC<InvoiceData> = ({
     const { id } = router.query;
     const [statusState, setStatusState] = useState(status);
     const [editInvoice, setEditInvoice] = useState(false);
-    const data = {
-        data: {
+    const [data, setData] = useState({
             senderAddress,
             clientAddress,
             items,
@@ -48,8 +47,7 @@ const invoice: React.FC<InvoiceData> = ({
             clientName,
             clientEmail,
             total,
-        },
-    }
+    })
 
     async function handleDeleteInvoice() {
         await api.delete(`/invoices/${id}`);
@@ -73,7 +71,7 @@ const invoice: React.FC<InvoiceData> = ({
             {editInvoice && (
                 <>
                     <BackgroundForModal onClick={() => setEditInvoice(false)} />
-                    <NewInvoice newInvoice={editInvoice} dataInvoice={data} setNewInvoice={setEditInvoice} />
+                    <NewInvoice newInvoice={editInvoice} dataInvoice={data} setNewInvoice={setEditInvoice} setData={setData} />
                 </>
             )}
 
@@ -106,38 +104,38 @@ const invoice: React.FC<InvoiceData> = ({
                     <div>
                         <p>
                             <span>#</span>
-                            {invoiceId}
+                            {data.invoiceId}
                         </p>
-                        <p>{description}</p>
+                        <p>{data.description}</p>
                     </div>
 
                     <div>
-                        <p>{senderAddress.street}</p>
-                        <p>{senderAddress.city}</p>
-                        <p>{senderAddress.postCode}</p>
-                        <p>{senderAddress.country}</p>
+                        <p>{data.senderAddress.street}</p>
+                        <p>{data.senderAddress.city}</p>
+                        <p>{data.senderAddress.postCode}</p>
+                        <p>{data.senderAddress.country}</p>
                     </div>
                 </InformationsBillFrom>
                 <InformationsBillTo>
                     <div className="dates">
                         <p>Invoice Date</p>
-                        <h3>{invoiceDate}</h3>
+                        <h3>{data.invoiceDate}</h3>
                         <p>Payment Due</p>
-                        <h3>{paymentDue}</h3>
+                        <h3>{data.paymentDue}</h3>
                     </div>
 
                     <div>
                         <p>BillTo</p>
-                        <h3>{clientName}</h3>
-                        <p>{clientAddress.street}</p>
-                        <p>{clientAddress.city}</p>
-                        <p>{clientAddress.postCode}</p>
-                        <p>{clientAddress.country}</p>
+                        <h3>{data.clientName}</h3>
+                        <p>{data.clientAddress.street}</p>
+                        <p>{data.clientAddress.city}</p>
+                        <p>{data.clientAddress.postCode}</p>
+                        <p>{data.clientAddress.country}</p>
                     </div>
 
                     <div>
                         <p>Sent To</p>
-                        <h3>{clientEmail}</h3>
+                        <h3>{data.clientEmail}</h3>
                     </div>
                 </InformationsBillTo>
                 <InvoiceItem>
@@ -145,21 +143,21 @@ const invoice: React.FC<InvoiceData> = ({
                         <div>
                             <p>Item Name</p>
                             <p>
-                                <b>{items.name}</b>
+                                <b>{data.items.name}</b>
                             </p>
                         </div>
 
                         <div>
                             <p>QTY.</p>
                             <p>
-                                <b>{items.quantity}</b>
+                                <b>{data.items.quantity}</b>
                             </p>
                         </div>
 
                         <div>
                             <p>Price</p>
                             <p>
-                                <b>{items.price}</b>
+                                <b>{data.items.price}</b>
                             </p>
                         </div>
 
@@ -168,8 +166,8 @@ const invoice: React.FC<InvoiceData> = ({
                             <p>
                                 <b>
                                     $
-                                    {Number(items.price) *
-                                        Number(items.quantity)}
+                                    {Number(data.items.price) *
+                                        Number(data.items.quantity)}
                                 </b>
                             </p>
                         </div>
@@ -177,7 +175,7 @@ const invoice: React.FC<InvoiceData> = ({
 
                     <div className="AmountDue">
                         <p>Amount Due</p>
-                        <h2>${total}</h2>
+                        <h2>${data.total}</h2>
                     </div>
                 </InvoiceItem>
             </InvoiceInformatios>
