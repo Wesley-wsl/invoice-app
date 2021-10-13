@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Container, Group, InputLarger, ItemList } from "./styles";
 import { NewInvoiceProps } from "../../@types/InvoiceTypes";
 import api from "../../services/api";
 import { FormEvent } from "hoist-non-react-statics/node_modules/@types/react";
+import { useRouter } from "next/dist/client/router";
 
 const NewInvoice: React.FC<NewInvoiceProps> = ({
     newInvoice,
     setNewInvoice,
-    getAllInvoices,
+    getInvoices,
+    dataInvoice
 }) => {
     const [streetAdressFrom, setStreetAdressFrom] = useState("");
     const [cityFrom, setCityFrom] = useState("");
@@ -23,41 +25,112 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
     const [invoiceDate, setInvoiceDate] = useState("");
     const [projectDescription, setProjectDescription] = useState("");
     const [paymentDue, setPaymentDue] = useState("");
-    const [itemName,setItemName] = useState("");
+    const [itemName, setItemName] = useState("");
     const [Qty, setQty] = useState("");
     const [price, setPrice] = useState("");
+    const router = useRouter();
+    const { id } = router.query;
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
 
-        await api.post("/invoices", {
-            invoiceId: "M019SK",
-            invoiceDate,
-            paymentDue,
-            description: projectDescription,
-            clientName,
-            clientEmail,
-            status: "Pending",
-            senderAddress: {
-                street: streetAdressFrom,
-                city: cityFrom,
-                postCode: postCodeFrom,
-                country: countryFrom,
-            },
-            clientAddress: {
-                street: streetAdressTo,
-                city: cityTo,
-                postCode: postCodeTo,
-                country: countryTo,
-            },
-            items: {
-                name: itemName, quantity: Qty, price, total: Number(Qty)*Number(price) 
-            },
-            total: Number(Qty)*Number(price) 
-        });
+        if (dataInvoice === undefined) {
+            await api.post("/invoices/", {
+                invoiceId: getInvoiceId(),
+                invoiceDate,
+                paymentDue,
+                description: projectDescription,
+                clientName,
+                clientEmail,
+                status: "Pending",
+                senderAddress: {
+                    street: streetAdressFrom,
+                    city: cityFrom,
+                    postCode: postCodeFrom,
+                    country: countryFrom,
+                },
+                clientAddress: {
+                    street: streetAdressTo,
+                    city: cityTo,
+                    postCode: postCodeTo,
+                    country: countryTo,
+                },
+                items: {
+                    name: itemName,
+                    quantity: Qty,
+                    price,
+                    total: Number(Qty) * Number(price),
+                },
+                total: Number(Qty) * Number(price),
+            });
 
-        getAllInvoices();
+            getInvoices();
+        } else {
+            await api.put(`/invoices/${id}`, {
+                invoiceId: dataInvoice.data.invoiceId,
+                invoiceDate,
+                paymentDue,
+                description: projectDescription,
+                clientName,
+                clientEmail,
+                status: "Pending",
+                senderAddress: {
+                    street: streetAdressFrom,
+                    city: cityFrom,
+                    postCode: postCodeFrom,
+                    country: countryFrom,
+                },
+                clientAddress: {
+                    street: streetAdressTo,
+                    city: cityTo,
+                    postCode: postCodeTo,
+                    country: countryTo,
+                },
+                items: {
+                    name: itemName,
+                    quantity: Qty,
+                    price,
+                    total: Number(Qty) * Number(price),
+                },
+                total: Number(Qty) * Number(price),
+            });
+
+            history.back()
+        }
+
         setNewInvoice(false);
+    }
+
+    useEffect(() => {
+        if (dataInvoice !== undefined) {
+            setStreetAdressFrom(dataInvoice.data.senderAddress.street);
+            setCityFrom(dataInvoice.data.senderAddress.city);
+            setPostCodeFrom(dataInvoice.data.senderAddress.postCode);
+            setCountryFrom(dataInvoice.data.senderAddress.country);
+            setClientName(dataInvoice.data.clientName);
+            setClientEmail(dataInvoice.data.clientEmail);
+            setStreetAdressTo(dataInvoice.data.clientAddress.street);
+            setCityTo(dataInvoice.data.clientAddress.city);
+            setPostCodeTo(dataInvoice.data.clientAddress.postCode);
+            setCountryTo(dataInvoice.data.clientAddress.country);
+            setInvoiceDate(dataInvoice.data.invoiceDate);
+            setProjectDescription(dataInvoice.data.description);
+            setPaymentDue(dataInvoice.data.paymentDue);
+            setItemName(dataInvoice.data.items.name);
+            setQty(dataInvoice.data.items.quantity);
+            setPrice(dataInvoice.data.items.price);
+        }
+    }, [dataInvoice]);
+
+    function getInvoiceId() {
+        let newString = "";
+        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for (let i = 0; i < 6; i++) {
+            newString += characters.charAt(
+                Math.floor(Math.random() * characters.length)
+            );
+        }
+        return newString;
     }
 
     return (
@@ -78,6 +151,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 onChange={(e) =>
                                     setStreetAdressFrom(e.target.value)
                                 }
+                                value={streetAdressFrom}
                                 required
                             />
                         </div>
@@ -91,6 +165,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     onChange={(e) =>
                                         setCityFrom(e.target.value)
                                     }
+                                    value={cityFrom}
                                     required
                                 />
                             </div>
@@ -103,6 +178,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     onChange={(e) =>
                                         setPostCodeFrom(e.target.value)
                                     }
+                                    value={postCodeFrom}
                                     required
                                 />
                             </div>
@@ -115,6 +191,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     onChange={(e) =>
                                         setCountryFrom(e.target.value)
                                     }
+                                    value={countryFrom}
                                     required
                                 />
                             </div>
@@ -130,6 +207,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 name="clientName"
                                 id="clientName"
                                 onChange={(e) => setClientName(e.target.value)}
+                                value={clientName}
                                 required
                             />
                         </div>
@@ -140,6 +218,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 name="clientEmail"
                                 id="clientEmail"
                                 onChange={(e) => setClientEmail(e.target.value)}
+                                value={clientEmail}
                                 required
                             />
                         </div>
@@ -154,6 +233,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 onChange={(e) =>
                                     setStreetAdressTo(e.target.value)
                                 }
+                                value={streetAdressTo}
                                 required
                             />
                         </div>
@@ -165,6 +245,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     name="cityTo"
                                     id="cityTo"
                                     onChange={(e) => setCityTo(e.target.value)}
+                                    value={cityTo}
                                     required
                                 />
                             </div>
@@ -177,6 +258,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     onChange={(e) =>
                                         setPostCodeTo(e.target.value)
                                     }
+                                    value={postCodeTo}
                                     required
                                 />
                             </div>
@@ -189,6 +271,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                     onChange={(e) =>
                                         setCountryTo(e.target.value)
                                     }
+                                    value={countryTo}
                                     required
                                 />
                             </div>
@@ -201,6 +284,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 name="invoiceDate"
                                 id="invoiceDate"
                                 onChange={(e) => setInvoiceDate(e.target.value)}
+                                value={invoiceDate}
                                 required
                             />
                         </div>
@@ -211,6 +295,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 name="paymentDue"
                                 id="paymentDue"
                                 onChange={(e) => setPaymentDue(e.target.value)}
+                                value={paymentDue}
                                 required
                             />
                         </div>
@@ -226,6 +311,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 onChange={(e) =>
                                     setProjectDescription(e.target.value)
                                 }
+                                value={projectDescription}
                                 required
                             />
                         </div>
@@ -239,9 +325,8 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 name="itemName"
                                 id="itemName"
                                 required
-                                onChange={(e) =>
-                                    setItemName(e.target.value)
-                                }
+                                onChange={(e) => setItemName(e.target.value)}
+                                value={itemName}
                             />
                         </div>
                         <div>
@@ -252,9 +337,8 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 id="Qty"
                                 className="input-small"
                                 required
-                                onChange={(e) =>
-                                    setQty(e.target.value)
-                                }
+                                onChange={(e) => setQty(e.target.value)}
+                                value={Qty}
                             />
                         </div>
 
@@ -266,9 +350,8 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                                 id="price"
                                 className="input-small"
                                 required
-                                onChange={(e) =>
-                                    setPrice(e.target.value)
-                                }
+                                onChange={(e) => setPrice(e.target.value)}
+                                value={price}
                             />
                         </div>
                     </ItemList>
