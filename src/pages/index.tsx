@@ -15,21 +15,21 @@ export default function Home({ invoices }) {
     async function getInvoices() {
         if ((!paid && !pending) || (paid && pending)) {
             const response = await api.get(
-                "http://localhost:3000/api/invoices"
+                "/invoices"
             );
             setInvoicesData([...response.data["data"]]);
         }
 
         if (paid && !pending) {
             const response = await api.get(
-                "http://localhost:3000/api/invoices?status=Paid"
+                "/invoices?status=Paid"
             );
             setInvoicesData([...response.data["data"]]);
         }
 
         if (pending && !paid) {
             const response = await api.get(
-                "http://localhost:3000/api/invoices?status=Pending"
+                "/invoices?status=Pending"
             );
             setInvoicesData([...response.data["data"]]);
         }
@@ -133,7 +133,7 @@ export default function Home({ invoices }) {
 }
 
 export async function getServerSideProps() {
-    const invoices = await api.get("http://localhost:3000/api/invoices");
+    const invoices = await api.get("/invoices");
 
     return {
         props: {
