@@ -4,7 +4,45 @@ export const Container = styled.div`
     margin-bottom: 20px;
     cursor: pointer;
 
-    ul {
+    @media (max-width: 780px) {
+        .container {
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+
+            .code-name {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                .name {
+                    margin-right: 0px;
+                }
+            }
+
+            .informations {
+                width: 100%;
+
+                .div {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100px;
+                    .date {
+                        color: #888eb0;
+                    }
+
+                    p {
+                        height: 25px;
+                    }
+                }
+            }
+            .icon {
+                display: none;
+            }
+        }
+    }
+
+    .container {
         display: flex;
         justify-content: space-between;
         list-style: none;
@@ -15,12 +53,36 @@ export const Container = styled.div`
         height: 84px;
         transition: 0.3s ease;
         border: 1px solid transparent;
+
         &:hover {
             border: 1px solid #7c5dfa;
         }
 
         span {
             color: #888eb0;
+        }
+
+        .code-name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p:nth-child(1) {
+                margin-right: 60px;
+            }
+        }
+
+        .informations {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 60px;
+
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 220px;
+            }
         }
 
         .id {
@@ -34,16 +96,16 @@ export const Container = styled.div`
 
         .name {
             overflow: hidden;
-            white-space:nowrap;
+            white-space: nowrap;
             text-overflow: ellipsis;
-            width: 130px;
+            max-width: 130px;
         }
 
         .invoice {
             font-size: 18px;
             width: 75px;
             overflow: hidden;
-            white-space:nowrap;
+            white-space: nowrap;
             text-overflow: ellipsis;
             font-weight: 600;
         }
@@ -60,31 +122,31 @@ export const Container = styled.div`
             &.Paid {
                 background-color: #1bff0024;
 
-                div {
+                .dot {
                     background-color: #00ff37;
                 }
 
-                p {
+                .stateName {
                     color: #00ff37;
                 }
             }
 
             &.Pending {
                 background-color: #ff8f0024;
-
-                div {
+                .dot {
                     background-color: #ff8f00;
                 }
 
-                p {
+                .stateName {
                     color: #ff8f00;
                 }
             }
-            
-            div {
+
+            .dot {
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
+                margin-top: 3px;
                 margin-right: 6px;
             }
         }

@@ -82,4 +82,5 @@ export interface ThemeProps {
     primary: string,
     secondary: string,
     color: string,
+    buttonNewInvoice: string
 }

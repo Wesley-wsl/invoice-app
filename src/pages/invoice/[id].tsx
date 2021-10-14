@@ -50,13 +50,13 @@ const invoice: React.FC<InvoiceData> = ({
     })
 
     async function handleDeleteInvoice() {
-        await api.delete(`/invoices/${id}`);
+        await api.delete(`/api/invoices/${id}`);
         history.back();
     }
 
 
     async function handlePaid() {
-        await api.patch(`/invoices/${id}`);
+        await api.patch(`/api/invoices/${id}`);
         setStatusState("Paid");
     }
 

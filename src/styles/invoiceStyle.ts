@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.main`
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 15px;
 `;
 
 export const Back = styled.div`
@@ -26,6 +27,22 @@ export const InvoiceController = styled.section`
     justify-content: space-between;
     margin-bottom: 60px;
     font-weight: 600;
+
+    @media (max-width: 590px) {
+        align-items: center;
+        div {
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        div:nth-child(1) {
+            .status {
+                margin-left: 0px;
+                width: 80px;
+            }
+        }
+    }
 
     div {
         display: flex;
@@ -85,7 +102,7 @@ export const InvoiceController = styled.section`
     }
 
     #edit {
-        background-color: #252945;
+        background-color: ${(props) => props.theme.buttonEdit};
         color: #fff;
 
         &:hover {
@@ -94,7 +111,7 @@ export const InvoiceController = styled.section`
     }
 
     #delete {
-        background-color: #ec5757;
+        background-color: ${(props) => props.theme.buttonDelete};
         color: #fff;
 
         &:hover {
@@ -104,7 +121,7 @@ export const InvoiceController = styled.section`
 
     #paid {
         width: 120px;
-        background-color: #00ff3799;
+        background-color: ${(props) => props.theme.buttonPaid};
         color: #fff;
 
         &:hover {
@@ -139,6 +156,17 @@ export const InformationsBillTo = styled.div`
     display: flex;
     justify-content: space-around;
     margin-bottom: 50px;
+
+    @media (max-width: 665px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 464px) {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
     div {
         display: flex;
         flex-direction: column;
@@ -168,6 +196,10 @@ export const InvoiceItem = styled.div`
         p {
             margin: 20px;
             font-size: 13px;
+        }
+
+        @media (max-width: 415px) {
+            flex-wrap: wrap;
         }
     }
 

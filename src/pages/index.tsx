@@ -15,21 +15,21 @@ export default function Home({ invoices }) {
     async function getInvoices() {
         if ((!paid && !pending) || (paid && pending)) {
             const response = await api.get(
-                "/invoices"
+                "api/invoices"
             );
             setInvoicesData([...response.data["data"]]);
         }
 
         if (paid && !pending) {
             const response = await api.get(
-                "/invoices?status=Paid"
+                "api/invoices?status=Paid"
             );
             setInvoicesData([...response.data["data"]]);
         }
 
         if (pending && !paid) {
             const response = await api.get(
-                "/invoices?status=Pending"
+                "api/invoices?status=Pending"
             );
             setInvoicesData([...response.data["data"]]);
         }

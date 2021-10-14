@@ -13,6 +13,17 @@ export const Container = styled.section`
     left: 0;
     animation: appear 0.3s linear;
 
+    @media (max-width: 700px) {
+        width: 85%;
+
+
+        input {
+            width:90%;
+        }
+    }
+
+
+
     h2 {
         padding: 10px;
         margin-top: 20px;
@@ -49,7 +60,7 @@ export const Button = styled.button`
     border: none;
     margin: 10px;
     border-radius: 20px;
-    background-color: #7c5dfa;
+    background-color: ${(props) => props.theme.buttonNewInvoice};
     color: #fff;
     cursor: pointer;
 `;
@@ -93,6 +104,12 @@ export const ItemList = styled.section`
     margin-bottom: 20px;
     margin-right: 55px;
     align-items: center;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        margin: 0px;
+        align-items: flex-start;
+    }
 
     div {
         display: flex;

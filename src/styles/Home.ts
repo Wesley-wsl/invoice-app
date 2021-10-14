@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Container = styled.main`
     max-width: 800px;
     margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
 `;
 export const InvoicesBar = styled.section`
     display: flex;
@@ -25,6 +27,11 @@ export const InvoicesBar = styled.section`
     .actions {
         display: flex;
         position: relative;
+        flex-wrap: wrap;
+
+        @media (max-width: 562px) {
+            justify-content: flex-end;
+        }
 
         #filter {
             padding: 15px;
@@ -39,7 +46,7 @@ export const InvoicesBar = styled.section`
             padding: 20px;
             top: 40px;
             left: 0;
-
+            z-index: 1;
             div {
                 label {
                     cursor: pointer;
@@ -54,7 +61,7 @@ export const InvoicesBar = styled.section`
         }
 
         button {
-            background-color: #7c5dfa;
+            background-color: ${props => props.theme.buttonNewInvoice};
             padding: 15px;
             border: none;
             border-radius: 20px;
@@ -72,6 +79,10 @@ export const InvoicesBar = styled.section`
                 width: 2rem;
                 height: 2rem;
                 border-radius: 50%;
+
+                path {
+                    fill: ${(props) => props.theme.color === "#fff" ? "#7c5dfa" : props.theme.color};
+                }
             }
         }
     }
