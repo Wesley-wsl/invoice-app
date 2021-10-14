@@ -18,13 +18,13 @@ export const Back = styled.div`
 `;
 
 export const InvoiceController = styled.section`
-    background-color: ${props => props.theme.secondary};
+    background-color: ${(props) => props.theme.secondary};
     padding: 25px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 60px;
-    font-weight:600;
+    font-weight: 600;
 
     div {
         display: flex;
@@ -33,7 +33,6 @@ export const InvoiceController = styled.section`
         p {
             font-size: 14px;
         }
-
 
         .status {
             margin-left: 20px;
@@ -73,7 +72,6 @@ export const InvoiceController = styled.section`
         }
     }
 
-
     button {
         margin-right: 20px;
         padding: 15px;
@@ -82,11 +80,10 @@ export const InvoiceController = styled.section`
         border: none;
         font-weight: 600;
         cursor: pointer;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
     }
 
-
-    #edit{
+    #edit {
         background-color: #252945;
         color: #fff;
 
@@ -98,8 +95,7 @@ export const InvoiceController = styled.section`
     #delete {
         background-color: #ec5757;
         color: #fff;
-        
-        
+
         &:hover {
             background-color: #d89a9a;
         }
@@ -114,16 +110,14 @@ export const InvoiceController = styled.section`
             background-color: #00ff37bf;
         }
     }
-
 `;
 
 export const InvoiceInformatios = styled.section`
-background-color: ${props => props.theme.secondary};
-border-radius: 10px;
-padding: 20px;
+    background-color: ${(props) => props.theme.secondary};
+    border-radius: 10px;
+    padding: 20px;
 
-margin-bottom: 40px;
-
+    margin-bottom: 40px;
 `;
 
 export const InformationsBillFrom = styled.div`
@@ -133,64 +127,56 @@ export const InformationsBillFrom = styled.div`
     p > span {
         color: #888eb0;
     }
-    
+
     p {
         font-size: 13px;
         margin: 4px;
     }
-
 `;
-
 
 export const InformationsBillTo = styled.div`
-display: flex;
-justify-content: space-around;
-margin-bottom: 50px;
-div {
     display: flex;
-    flex-direction: column;
-}
-
-p {
-    font-size: 13px;
-    margin: 4px 0px;
-}
-
-h3 {
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-`;
-
-
-export const InvoiceItem = styled.div`
-background-color: ${props => props.theme.primary};
-border-radius: 10px;
-
-
-.itemInformations {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    align-items: center;
-
+    justify-content: space-around;
+    margin-bottom: 50px;
+    div {
+        display: flex;
+        flex-direction: column;
+    }
 
     p {
-        margin: 20px;
         font-size: 13px;
+        margin: 4px 0px;
     }
-}
 
+    h3 {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+`;
 
-
-
-.AmountDue {
-    background-color: #000;
-    color: #fff;
-    padding: 20px;
+export const InvoiceItem = styled.div`
+    background-color: ${(props) => props.theme.primary};
     border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
+    .itemInformations {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        align-items: center;
+
+        p {
+            margin: 20px;
+            font-size: 13px;
+        }
+    }
+
+    .AmountDue {
+        background-color: #000;
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 `;

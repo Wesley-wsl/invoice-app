@@ -8,7 +8,7 @@ import {
     InvoiceController,
     InvoiceInformatios,
     InvoiceItem,
-} from "./styles";
+} from "../../styles/invoiceStyle";
 import api from "../../services/api";
 import { InvoiceData } from "../../@types/InvoiceTypes";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
