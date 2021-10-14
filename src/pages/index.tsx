@@ -4,7 +4,6 @@ import { BackgroundForModal, Container, InvoicesBar } from "../styles/Home";
 import NewInvoice from "../components/NewInvoice";
 import api from "../services/api";
 import React, { useState, useEffect } from "react";
-import { Key } from "hoist-non-react-statics/node_modules/@types/react";
 
 export default function Home({ invoices }) {
     const [newInvoice, setNewInvoice] = useState(false);
@@ -126,7 +125,7 @@ export default function Home({ invoices }) {
                             status: string;
                             paymentDue: string;
                         },
-                        index: Key
+                        index: KeyType
                     ) => <InvoiceCard data={data} key={index} />
                 )}
         </Container>
