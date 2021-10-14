@@ -36,7 +36,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
         e.preventDefault();
 
         if (dataInvoice === undefined) {
-            await api.post("api/invoices/", {
+            await api.post("/api/invoices/", {
                 invoiceId: getInvoiceId(),
                 invoiceDate,
                 paymentDue,
