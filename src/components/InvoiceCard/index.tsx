@@ -8,22 +8,31 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({ data }) => {
     return (
         <Container>
             <Link href={`invoice/${data.invoiceId}`}>
-                <ul>
-                    <li className="id">
-                        <span>#</span>
-                        {data.invoiceId}
-                    </li>
-                    <li className="date">{data.paymentDue}</li>
-                    <li className="name">{data.clientName}</li>
-                    <li className="invoice">${data.total}</li>
-                    <li className={`state ${data.status}`}>
-                        {" "}
-                        <div /> <p>{data.status}</p>
-                    </li>
-                    <li className="icon">
-                        <IconArrowRight />
-                    </li>
-                </ul>
+                <div className="container">
+                    <div className="code-name">
+                        <p className="id">
+                            {" "}
+                            <span>#</span>
+                            {data.invoiceId}
+                        </p>
+                        <p className="name">{data.clientName}</p>
+                    </div>
+
+                    <div className="informations">
+
+                        <div className="div">
+                            <p className="date">{data.paymentDue}</p>
+                            <p className="invoice">${data.total}</p>
+                        </div>
+                        <p className={`state ${data.status}`}>
+                            {" "}
+                            <span className="dot" /> <span className="stateName">{data.status}</span>
+                        </p>
+                        <p className="icon">
+                            <IconArrowRight />
+                        </p>
+                    </div>
+                </div>
             </Link>
         </Container>
     );
