@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 
 import { Button, Container, Group, InputLarger, ItemList } from "./styles";
 import { NewInvoiceProps } from "../../@types/InvoiceTypes";
 import api from "../../services/api";
-import { FormEvent } from "hoist-non-react-statics/node_modules/@types/react";
 import { useRouter } from "next/dist/client/router";
 
 const NewInvoice: React.FC<NewInvoiceProps> = ({
