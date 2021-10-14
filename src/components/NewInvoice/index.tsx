@@ -65,7 +65,7 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                 total: Number(Qty) * Number(price),
             });
 
-            getInvoices();
+            await getInvoices();
         } else {
             await api.put(`/api/invoices/${id}`, {
                 invoiceId: dataInvoice.invoiceId,
