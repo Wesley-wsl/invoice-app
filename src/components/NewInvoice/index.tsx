@@ -7,6 +7,7 @@ import { useRouter } from "next/dist/client/router";
 
 const NewInvoice: React.FC<NewInvoiceProps> = ({
     newInvoice,
+    setStatusState,
     setNewInvoice,
     getInvoices,
     setData,
@@ -123,6 +124,8 @@ const NewInvoice: React.FC<NewInvoiceProps> = ({
                 },
                 total: Number(Qty) * Number(price),
             })
+
+            setStatusState('Pending')
         }
 
         setNewInvoice(false);

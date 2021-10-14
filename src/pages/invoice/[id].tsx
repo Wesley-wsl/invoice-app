@@ -54,9 +54,6 @@ const invoice: React.FC<InvoiceData> = ({
         history.back();
     }
 
-    useEffect(() => {
-        setStatusState(data.status)
-    },[data.status])
 
     async function handlePaid() {
         await api.patch(`/invoices/${id}`);
@@ -75,7 +72,7 @@ const invoice: React.FC<InvoiceData> = ({
             {editInvoice && (
                 <>
                     <BackgroundForModal onClick={() => setEditInvoice(false)} />
-                    <NewInvoice newInvoice={editInvoice} dataInvoice={data} setNewInvoice={setEditInvoice} setData={setData} />
+                    <NewInvoice newInvoice={editInvoice} dataInvoice={data} setNewInvoice={setEditInvoice} setData={setData} setStatusState={setStatusState}/>
                 </>
             )}
 

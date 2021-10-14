@@ -13,6 +13,7 @@ export interface NewInvoiceProps {
     setNewInvoice?: Function;
     setData?: Function;
     getInvoices?: Function;
+    setStatusState?: Function;
     dataInvoice?: {
         senderAddress: {
             street: string;
