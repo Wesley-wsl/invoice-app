@@ -36,11 +36,19 @@ const theme = {
         primary: "#141625",
         secondary: "#1e2139",
         color: "#fff",
+        buttonNewInvoice: "#7c5dfa",
+        buttonPaid: "#00ff3799",
+        buttonEdit: "#252945",
+        buttonDelete: "#ec5757"
     },
     light: {
         primary: "rgb(230, 230, 230)",
         secondary: "rgb(250, 250, 250)",
-        color: "#000"
+        color: "#000",
+        buttonNewInvoice: "#000",
+        buttonPaid: "#00ff37cc",
+        buttonEdit: "#000",
+        buttonDelete: "#d20000"
     },
 };
 
