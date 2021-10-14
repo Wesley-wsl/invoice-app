@@ -11,6 +11,7 @@ export const Back = styled.div`
     margin-top: 50px;
     cursor: pointer;
     margin-bottom: 30px;
+    width: 85px;
 
     b {
         margin-left: 10px;
