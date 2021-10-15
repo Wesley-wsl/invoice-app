@@ -32,6 +32,7 @@ invoice-app is a project to organize your invoices.
 <li><a href="https://styled-components.com">Styled-components</a></li>
 <li><a href="https://nextjs.org">Next.js</a></li>
 <li><a href="https://github.com/axios/axios">Axios</a></li>
+<li><a href="https://www.mongodb.com/pt-br">MongoDB</a></li>
 <li><a href="https://www.typescriptlang.org">TypeScript</a></li>
 <li><a href="https://editorconfig.org">EditorConfig</a></li>
 
