@@ -188,7 +188,7 @@ export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext
 ) => {
     const { id } = context.query;
-    const response = await api.get<InvoiceData>(`/invoices/${id}`);
+    const response = await api.get<InvoiceData>(`api/invoices/${id}`);
     const data = response.data;
 
     return {

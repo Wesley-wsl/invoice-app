@@ -133,7 +133,7 @@ export default function Home({ invoices }) {
 }
 
 export async function getServerSideProps() {
-    const invoices = await api.get("/invoices");
+    const invoices = await api.get("api/invoices");
 
     return {
         props: {
